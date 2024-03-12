@@ -2,16 +2,17 @@
 #ifndef MODELPROGRAM_BINARY_H
 #define MODELPROGRAM_BINARY_H
 
+using namespace std;
 
 class Binary : public Number {
 private:
-    std::string value;
+    string value;
 
 public:
     Binary(const std::string& val);
-    std::string toBinary() const override;
-    std::string toDecimal() const override;
-    std::string toHexadecimal() const override;
+    string toBinary() const override;
+    string toDecimal() const override;
+    string toHexadecimal() const override;
 };
 
 

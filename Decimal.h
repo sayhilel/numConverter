@@ -2,6 +2,7 @@
 #ifndef MODELPROGRAM_DECIMAL_H
 #define MODELPROGRAM_DECIMAL_H
 
+using namespace std;
 
 class Decimal : public Number {
 private:
@@ -9,9 +10,9 @@ private:
 
 public:
     Decimal(int val);
-    std::string toBinary() const override;
-    std::string toHexadecimal() const override;
-    std::string toDecimal() const override;
+    string toBinary() const override;
+    string toHexadecimal() const override;
+    string toDecimal() const override;
 };
 
 
