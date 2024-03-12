@@ -4,7 +4,10 @@ Model Program to be used to demonstrate the debugging process using tools such a
 
 ## Execution
 
-- Valid Execution: `./modelProgram ifile ofile`
+- Valid Execution: `./modelProgram ifile ofile <mode>`
+- Mode:
+  - **0**: Operations are performed on ifile values
+  - **1**: User is prompted for a buffer input
 - Program should have the following commands:
   - **Init**: Reads the numbers from `ifile` and stores them in a vector.
   - **Convert <secondCommand>**: Converts the array
