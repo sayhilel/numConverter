@@ -7,21 +7,26 @@ using std::cin, std::cout, std::cerr, std::endl, std::string;
 
 int main(int argc, char* argv[])
 {
-
+	
+	// Variables used
 	string command;
 	string subCommand;
 	size_t position;
 	
 	int input;
 	double value;
-
+	
+	// Check usage
 	if(argc < 4){
 		cerr << "Usage: ./program <ifile> <ofile> <mode>" << endl;
 		return 1;
 	}
 	
+	// Default greeter
 	greeter();
 	
+	// --------- AUTOMATIC MODE -----------
+
 	while (true && (string(argv[3]) == "0"))
 	{
 		if(!nextCommand(command, subCommand, &position)){
@@ -42,7 +47,9 @@ int main(int argc, char* argv[])
 		
 	}	
 
-	// Merged modelProgram.c
+	// Merged modelProgram.cpp
+	// --------- MANUAL MODE -----------
+
 	if(string(argv[3]) == "1"){
 	cout << "Manual mode selected, enter a value:" << endl;
 	}
