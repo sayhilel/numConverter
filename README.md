@@ -16,6 +16,7 @@ Model Program to be used to demonstrate the debugging process using tools such a
     - `H2D`: Converts hex to decimal.
   - **Save**: Saves the array to `ofile`.
   - **Print <index>**: If no index is provided, it prints the whole array.
+  - **Stop**: Exits the program
   - ** <SOME ARITH FUNCTIONS?>
 
 ## Structure
