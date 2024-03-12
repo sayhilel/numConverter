@@ -32,6 +32,7 @@ int main(int argc, char* argv[])
 	greeter();
 	
 	// --------- AUTOMATIC MODE -----------
+	//  USE ARGV0 ARGV1 to open file iostreams
 	if(string(argv[3]) == "0"){
 	
 		std::cout << "Type \"Help\" to see usage instructions" << std::endl;
@@ -63,8 +64,9 @@ int main(int argc, char* argv[])
 	if(string(argv[3]) == "1"){
 		
 		cout << "Manual mode selected, enter a value:" << endl;
-	
+		// INIT NUMBER CLASS
 		
+		// BREAK - ME
 		if (!(cin >> value)){
 			cerr << "ERROR: Inavlid Value" << endl;
 			return 1;
@@ -79,19 +81,23 @@ int main(int argc, char* argv[])
 		
 		while (input != 0)
 		{
-			switch (input)
-			case 1:
-			// convert to binary
-			case 2:
-			// convert to hex
-			default:
-				cout << "Invalid input" << endl;
-			break;
+			switch (input){
+			
+				case 1:
+				// convert to binary
+			
+				case 2:
+				// convert to hex
+			
+				default:
+					cout << "Invalid input" << endl;
+				break;
 
-			if (input != 0)
-			{
-				printMenu();
-				cin >> input;
+				if (input != 0)
+				{
+					printMenu();
+					cin >> input;
+				}
 			}
 		}
 	}
