@@ -4,6 +4,8 @@
 
 using std::cout, std::cerr, std::endl, std::string;
 
+
+
 int main(int argc, char* argv[])
 {
 
@@ -16,6 +18,8 @@ int main(int argc, char* argv[])
 		cerr << "Usage: ./program <ifile> <ofile> " << endl;
 		return 1;
 	}
+	
+	greeter();
 
 	while (true)
 	{
@@ -27,6 +31,11 @@ int main(int argc, char* argv[])
 
 		if(command == "help"){
 			printMenu();
+		}
+
+		if(command == "stop"){
+			cout << "Exiting...." << endl;
+			break;
 		}
 
 		

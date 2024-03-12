@@ -15,9 +15,8 @@ bool nextCommand(std::string& command, std::string& subCommand, size_t* position
 		
 	command = toLower(command); //BREAK-ME
 
-	if ((command == "init") || (command == "save"))
+	if ((command == "init") || (command == "save") || (command == "stop") || (command == "help"))
 		return true;
-
 
 	if (command == "convert"){
 		if(std::cin >> subCommand){
@@ -37,4 +36,33 @@ bool nextCommand(std::string& command, std::string& subCommand, size_t* position
 	}
 
 	return false;
+}
+
+void seperator(){
+	std::cout << "\033[32m" << '+' << BORDER_LINE << '+' << "\033[0m" << std::endl;
+}
+
+void printMenu(){
+	
+	seperator();
+	std::cout << "Init: Reads the numbers from ifile and stores them in a vector." << std::endl;
+	std::cout << "Convert : Converts the array" << std::endl;
+	std::cout << "    D2B: Converts decimal to binary." << std::endl;
+	std::cout << "    B2H: Converts binary to hex." << std::endl;
+	std::cout << "    D2H: Converts decimal to hex (built using D2B & B2H)." << std::endl;
+	std::cout << "    H2B: Converts hex to binary." << std::endl;
+	std::cout << "    B2D: Converts binary to decimal." << std::endl;
+	std::cout << "    H2D: Converts hex to decimal." << std::endl;
+	std::cout << "Save: Saves the array to ofile." << std::endl;
+	std::cout << "Print : If no index is provided, it prints the whole array." << std::endl;
+	seperator();
+}
+void greeter(){
+
+	seperator();
+	std::cout << "Welcome, I am C++ program designed for this workshop" << std::endl;
+	std::cout << "Unfortunately there are some issues in my codebase. Can you spot and fix them?" << std::endl;
+	std::cout << "Type \"Help\" to see usage instructions" << std::endl;
+	seperator();
+
 }
