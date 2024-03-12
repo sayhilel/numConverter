@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ostream>
 #include <string>
 #include "util.h"
 
@@ -22,69 +23,76 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 	
+	if (!(std::string(argv[3]) == "0" || std::string(argv[3]) == "1")) {
+		std::cerr << "Error : Incorrect mode" << std::endl;
+		return 1;
+	}
+
 	// Default greeter
 	greeter();
 	
 	// --------- AUTOMATIC MODE -----------
+	if(string(argv[3]) == "0"){
+	
+		std::cout << "Type \"Help\" to see usage instructions" << std::endl;
 
-	while (true && (string(argv[3]) == "0"))
-	{
-		if(!nextCommand(command, subCommand, &position)){
-			cerr << "ERROR: Invalid input" << endl;
-			cerr << "Enter \"HELP\" to print out valid commands" << endl;
-			continue;
-		}
+		while (true)
+		{
+			if(!nextCommand(command, subCommand, &position)){
+				cerr << "ERROR: Invalid input" << endl;
+				cerr << "Enter \"HELP\" to print out valid commands" << endl;
+				continue;
+			}
 
-		if(command == "help"){
-			iprintMenu();
-		}
+			if(command == "help"){
+				iprintMenu();
+			}
 
-		if(command == "stop"){
-			cout << "Exiting...." << endl;
-			return 0;
-		}
+			if(command == "stop"){
+				cout << "Exiting...." << endl;
+				return 0;
+			}
 
 		
-	}	
+		}
+	}
 
 	// Merged modelProgram.cpp
 	// --------- MANUAL MODE -----------
 
 	if(string(argv[3]) == "1"){
-	cout << "Manual mode selected, enter a value:" << endl;
-	}
-	else{
-		cerr << "ERROR: Mode must be either 0 or 1" << endl;
-		return 1;
-	}
-	
-	if (!(cin >> value)){
-		cerr << "ERROR: Inavlid Value" << endl;
-		return 1;
-	}
-
-	printMenu();
-	
-	if (!(cin >> input)){
-		cerr << "ERROR: Inavlid Value" << endl;
-		return 1;
-	}
 		
-	while (input != 0)
-	{
-		switch (input)
-		case 1:
-		// convert to binary
-		case 2:
-		// convert to hex
-		default:
-			cout << "Invalid input" << endl;
-		break;
+		cout << "Manual mode selected, enter a value:" << endl;
+	
+		
+		if (!(cin >> value)){
+			cerr << "ERROR: Inavlid Value" << endl;
+			return 1;
+		}
 
-		if (input != 0)
+		printMenu();
+	
+		if (!(cin >> input)){
+			cerr << "ERROR: Inavlid Value" << endl;
+			return 1;
+		}
+		
+		while (input != 0)
 		{
-			printMenu();
-			cin >> input;
+			switch (input)
+			case 1:
+			// convert to binary
+			case 2:
+			// convert to hex
+			default:
+				cout << "Invalid input" << endl;
+			break;
+
+			if (input != 0)
+			{
+				printMenu();
+				cin >> input;
+			}
 		}
 	}
 
