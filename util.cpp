@@ -45,7 +45,7 @@ void seperator(){
 	std::cout << "\033[32m" << '+' << BORDER_LINE << '+' << "\033[0m" << std::endl;
 }
 
-void printMenu(){
+void iprintMenu(){
 	
 	seperator();
 	std::cout << "Init: Reads the numbers from ifile and stores them in a vector." << std::endl;
@@ -68,4 +68,14 @@ void greeter(){
 	std::cout << "Type \"Help\" to see usage instructions" << std::endl;
 	seperator();
 
+}
+
+void printMenu(){
+
+	seperator();
+	std::cout << "Menu:" << std::endl; 
+	std::cout << "0. Exit" << std::endl;
+	std::cout << "1. Convert to binary" << std::endl;
+	std::cout << "2. Convert to hex" << std::endl;
+	seperator();
 }
