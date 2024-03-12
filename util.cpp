@@ -1,6 +1,9 @@
 #include "util.h"
 #include <iostream>
 
+int BOX_WIDTH = 80;
+std::string BORDER_LINE(BOX_WIDTH, '-');
+
 std::string toLower(const std::string& str) {
     std::string result;
     for (char c : str) {
