@@ -1,39 +1,48 @@
 #include "util.h"
 #include <iostream>
+#include <string>
 
 int BOX_WIDTH = 80;
 std::string BORDER_LINE(BOX_WIDTH, '-');
 
-std::string toLower(const std::string& str) {
-    std::string result;
-    for (char c : str) {
-        result += std::tolower(c);
-    }
-    return result;
+std::string toLower(const std::string &str)
+{
+	std::string result;
+	for (char c : str)
+	{
+		result += std::tolower(c);
+	}
+	return result;
 }
 
-bool nextCommand(std::string& command, std::string& subCommand, size_t* position){
-	
+bool nextCommand(std::string &command, std::string &subCommand, size_t *position)
+{
+
 	std::cin >> command;
-		
-	command = toLower(command); //BREAK-ME
+
+	command = toLower(command); // BREAK-ME
 
 	if ((command == "init") || (command == "save") || (command == "stop") || (command == "help"))
 		return true;
 
-	if (command == "convert"){
-		if(std::cin >> subCommand){
-			
-			subCommand = toLower(subCommand);		
+	if (command == "convert")
+	{
+		if (std::cin >> subCommand)
+		{
 
-			if((subCommand == "d2b")||(subCommand == "b2h")||(subCommand == "d2h")||(subCommand == "h2b")||(subCommand == "b2d")||(subCommand == "h2d")){
+			subCommand = toLower(subCommand);
+
+			if ((subCommand == "d2b") || (subCommand == "b2h") || (subCommand == "d2h") || (subCommand == "h2b") || (subCommand == "b2d") || (subCommand == "h2d"))
+			{
 				return true;
 			}
 		}
 	}
 
-	if (command == "print"){
-		if(std::cin >> *position){
+	if (command == "print")
+	{
+		if (std::cin >> *position)
+		{
 			return true;
 		}
 	}
@@ -41,12 +50,14 @@ bool nextCommand(std::string& command, std::string& subCommand, size_t* position
 	return false;
 }
 
-void seperator(){
+void seperator()
+{
 	std::cout << "\033[32m" << '+' << BORDER_LINE << '+' << "\033[0m" << std::endl;
 }
 
-void iprintMenu(){
-	
+void iprintMenu()
+{
+
 	seperator();
 	std::cout << "Init: Reads the numbers from ifile and stores them in a vector." << std::endl;
 	std::cout << "Convert : Converts the array" << std::endl;
@@ -60,22 +71,29 @@ void iprintMenu(){
 	std::cout << "Print : If no index is provided, it prints the whole array." << std::endl;
 	seperator();
 }
-void greeter(){
+void greeter()
+{
 
 	seperator();
 	std::cout << "Welcome, I am C++ program designed for this workshop" << std::endl;
 	std::cout << "Unfortunately there are some issues in my codebase. Can you spot and fix them?" << std::endl;
 	std::cout << "Type \"Help\" to see usage instructions" << std::endl;
 	seperator();
-
 }
 
-void printMenu(){
+void printMenu()
+{
 
 	seperator();
-	std::cout << "Menu:" << std::endl; 
+	std::cout << "Menu:" << std::endl;
 	std::cout << "0. Exit" << std::endl;
 	std::cout << "1. Convert to binary" << std::endl;
 	std::cout << "2. Convert to hex" << std::endl;
 	seperator();
+}
+
+std::string toBinary(int dec)
+{
+	// add logic here if u have it
+	return "";
 }
