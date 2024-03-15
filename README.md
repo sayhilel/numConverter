@@ -1,4 +1,4 @@
-# ModelProgram
+# NumConverter
 
 Model Program to be used to demonstrate the debugging process using tools such as GDB and Valgrind.
 
