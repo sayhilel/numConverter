@@ -99,7 +99,19 @@ inline void printMenu() {
   seperator();
 }
 
-inline std::string toBinary(int dec) {
-  // add logic here if u have it
-  return "";
+inline std::string extractType(std::string *input) {
+
+  // <BREAK-ME>
+  std::string type = "0d";
+
+  if (input->size() >= 2 && (*input)[0] == '0') {
+    if ((*input)[1] == 'x' || (*input)[1] == 'X') {
+      type = "0x";
+      *input = input->substr(2);
+    } else if ((*input)[1] == 'b' || (*input)[1] == 'B') {
+      type = "0b";
+      *input = input->substr(2);
+    }
+  }
+  return type;
 }
