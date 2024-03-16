@@ -53,7 +53,7 @@ public:
 
     // conversion
     int toDecimal();
-    BinaryNum toBinary();
+    string toBinary();
 };
 
 #endif

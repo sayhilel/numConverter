@@ -1,10 +1,4 @@
 #include "numConverter.h"
-#include "util.hpp"
-#include <cmath>
-#include <map>
-#include <string>
-
-using std::string;
 
 numCoverter::numCoverter(string num, string type) {
   this->num = num;
@@ -15,7 +9,7 @@ string numCoverter::convertB2D(string num) {
 
   int result = 0;
 
-  for (int i = 0; i < num.length(); i++) {
+  for (size_t i = 0; i < num.length(); i++) {
     if (num[i] != '0' && num[i] != '1') {
       return "ERROR: Invalid binary"; // <BREAK-ME>
     }
@@ -41,7 +35,7 @@ string numCoverter::convertD2B(string num) {
 string numCoverter::convertH2B(string num) {
   string result = "";
 
-  for (int i = 0; i < num.length(); i++) {
+  for (size_t i = 0; i < num.length(); i++) {
     if (hexToBin.find(num[i]) == hexToBin.end()) {
       return "ERROR: Invalid binary";
     }
@@ -57,7 +51,7 @@ string numCoverter::convertB2H(string num) {
     num = "0" + num;
   }
 
-  for (int i = 0; i < num.length(); i += 4) {
+  for (size_t i = 0; i < num.length(); i += 4) {
     string temp = num.substr(i, 4);
     for (const auto &pair : hexToBin) {
       if (pair.second == temp) {
