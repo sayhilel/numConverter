@@ -1,6 +1,7 @@
 #include "numConverter.h"
+#include "util.hpp"
 #include <cmath>
-#include <iostream>
+#include <map>
 #include <string>
 
 using std::string;
@@ -37,6 +38,36 @@ string numCoverter::convertD2B(string num) {
   return result;
 }
 
+string numCoverter::convertH2B(string num) {
+  string result = "";
+
+  for (int i = 0; i < num.length(); i++) {
+    if (hexToBin.find(num[i]) == hexToBin.end()) {
+      return "ERROR: Invalid binary";
+    }
+    result += hexToBin[num[i]];
+  }
+  return result;
+}
+
+string numCoverter::convertB2H(string num) {
+  string result = "";
+
+  while (num.length() % 4 != 0) {
+    num = "0" + num;
+  }
+
+  for (int i = 0; i < num.length(); i += 4) {
+    string temp = num.substr(i, 4);
+    for (const auto &pair : hexToBin) {
+      if (pair.second == temp) {
+        result += pair.first;
+      }
+    }
+  }
+  return result;
+}
+
 bool numCoverter::convert(string newType) {
 
   if (newType == numCoverter::type) {
@@ -49,6 +80,10 @@ bool numCoverter::convert(string newType) {
       numCoverter::type = newType;
       numCoverter::num = convertD2B(num);
       return true;
+    } else if (numCoverter::type == "0x") {
+      numCoverter::type = newType;
+      numCoverter::num = convertH2B(num);
+      return true;
     }
   }
 
@@ -57,7 +92,24 @@ bool numCoverter::convert(string newType) {
       numCoverter::type = newType;
       numCoverter::num = convertB2D(num);
       return true;
+    } else if (numCoverter::type == "0x") {
+      numCoverter::type = newType;
+      numCoverter::num = convertB2D(convertH2B(num));
+      return true;
     }
   }
+
+  if (newType == "0x") {
+    if (numCoverter::type == "0b") {
+      numCoverter::type = newType;
+      numCoverter::num = convertB2H(num);
+      return true;
+    } else if (numCoverter::type == "0d") {
+      numCoverter::type = newType;
+      numCoverter::num = convertB2H(convertD2B(num));
+      return true;
+    }
+  }
+
   return false;
 }

@@ -11,6 +11,8 @@ private:
 
   string convertB2D(string num);
   string convertD2B(string num);
+  string convertH2B(string num);
+  string convertB2H(string num);
 
 public:
   // Constructor
