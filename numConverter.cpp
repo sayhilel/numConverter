@@ -1,11 +1,11 @@
 #include "numConverter.h"
 
-numCoverter::numCoverter(string num, string type) {
+numConverter::numConverter(string num, string type) {
   this->num = num;
   this->type = type;
 }
 
-string numCoverter::convertB2D(string num) {
+string numConverter::convertB2D(string num) {
 
   int result = 0;
 
@@ -22,7 +22,7 @@ string numCoverter::convertB2D(string num) {
   return std::to_string(result);
 }
 
-string numCoverter::convertD2B(string num) {
+string numConverter::convertD2B(string num) {
   int n = std::stoi(num);
   string result = "";
   while (n > 0) {
@@ -32,7 +32,7 @@ string numCoverter::convertD2B(string num) {
   return result;
 }
 
-string numCoverter::convertH2B(string num) {
+string numConverter::convertH2B(string num) {
   string result = "";
 
   for (size_t i = 0; i < num.length(); i++) {
@@ -44,7 +44,7 @@ string numCoverter::convertH2B(string num) {
   return result;
 }
 
-string numCoverter::convertB2H(string num) {
+string numConverter::convertB2H(string num) {
   string result = "";
 
   while (num.length() % 4 != 0) {
@@ -62,45 +62,45 @@ string numCoverter::convertB2H(string num) {
   return result;
 }
 
-bool numCoverter::convert(string newType) {
+bool numConverter::convert(string newType) {
 
-  if (newType == numCoverter::type) {
+  if (newType == numConverter::type) {
     std::cerr << "ERROR: Number is already of type " << newType << std::endl;
     return false;
   }
 
   if (newType == "0b") {
-    if (numCoverter::type == "0d") {
-      numCoverter::type = newType;
-      numCoverter::num = convertD2B(num);
+    if (numConverter::type == "0d") {
+      numConverter::type = newType;
+      numConverter::num = convertD2B(num);
       return true;
-    } else if (numCoverter::type == "0x") {
-      numCoverter::type = newType;
-      numCoverter::num = convertH2B(num);
+    } else if (numConverter::type == "0x") {
+      numConverter::type = newType;
+      numConverter::num = convertH2B(num);
       return true;
     }
   }
 
   if (newType == "0d") {
-    if (numCoverter::type == "0b") {
-      numCoverter::type = newType;
-      numCoverter::num = convertB2D(num);
+    if (numConverter::type == "0b") {
+      numConverter::type = newType;
+      numConverter::num = convertB2D(num);
       return true;
-    } else if (numCoverter::type == "0x") {
-      numCoverter::type = newType;
-      numCoverter::num = convertB2D(convertH2B(num));
+    } else if (numConverter::type == "0x") {
+      numConverter::type = newType;
+      numConverter::num = convertB2D(convertH2B(num));
       return true;
     }
   }
 
   if (newType == "0x") {
-    if (numCoverter::type == "0b") {
-      numCoverter::type = newType;
-      numCoverter::num = convertB2H(num);
+    if (numConverter::type == "0b") {
+      numConverter::type = newType;
+      numConverter::num = convertB2H(num);
       return true;
-    } else if (numCoverter::type == "0d") {
-      numCoverter::type = newType;
-      numCoverter::num = convertB2H(convertD2B(num));
+    } else if (numConverter::type == "0d") {
+      numConverter::type = newType;
+      numConverter::num = convertB2H(convertD2B(num));
       return true;
     }
   }
