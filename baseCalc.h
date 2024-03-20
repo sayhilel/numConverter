@@ -4,7 +4,8 @@
 #include <string>
 using std::string;
 
-class BinaryNum {
+class BinaryNum
+{
 private:
   string number;
   int bits;
@@ -29,7 +30,8 @@ public:
   HexNum *toHex();
 };
 
-class HexNum {
+class HexNum
+{
 private:
   string number;
   int digits;

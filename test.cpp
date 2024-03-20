@@ -1,5 +1,4 @@
 #include "numConverter.h"
-#include "util.hpp"
 #include <iostream>
 #include <string>
 
@@ -11,7 +10,7 @@ int main() {
   std::cin >> input;
   type = extractType(&input);
 
-  numCoverter *activeNum = new numCoverter(input, type);
+  numConverter *activeNum = new numConverter(input, type);
   std::cout << activeNum->getNum() << std::endl;
 
   std::cout << "enter new type 0x, 0b, 0d " << std::endl;

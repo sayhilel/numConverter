@@ -2,9 +2,15 @@
 #ifndef NUMCONVERT
 #define NUMCONVERT
 #include <string>
-using std::string;
+#include <cmath>
+#include <map>
 
-class numCoverter {
+#include "util.hpp"
+
+using namespace std;
+
+class numConverter
+{
 private:
   string num;
   string type;
@@ -16,7 +22,7 @@ private:
 
 public:
   // Constructor
-  numCoverter(string num, string type);
+  numConverter(string num, string type);
   // Changes the type of the number to newType
   bool convert(string newType);
   // Concatenates the number and its type and returns
