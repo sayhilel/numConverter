@@ -2,7 +2,6 @@
 #include <iostream>
 #include <ostream>
 #include <string>
-
 using std::cin, std::cout, std::cerr, std::endl, std::string;
 
 int main(int argc, char *argv[]) {

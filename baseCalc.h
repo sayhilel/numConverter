@@ -4,56 +4,54 @@
 #include <string>
 using std::string;
 
-class BinaryNum
-{
+class BinaryNum {
 private:
-    string number;
-    int bits;
+  string number;
+  int bits;
 
 public:
-    // constructors
-    BinaryNum();
-    BinaryNum(string bin);
-    BinaryNum(int dec);
+  // constructors
+  BinaryNum();
+  BinaryNum(string bin);
+  BinaryNum(int dec);
 
-    // getters and setters
-    string getNumber();
-    int getBits();
-    void setNumber(string number);
+  // getters and setters
+  string getNumber();
+  int getBits();
+  void setNumber(string number);
 
-    // arithmetic functions
-    BinaryNum addNum(BinaryNum num);
-    BinaryNum subNum(BinaryNum num);
+  // arithmetic functions
+  BinaryNum addNum(BinaryNum num);
+  BinaryNum subNum(BinaryNum num);
 
-    // conversion
-    int toDecimal();
-    HexNum toHex();
+  // conversion
+  int toDecimal();
+  HexNum *toHex();
 };
 
-class HexNum
-{
+class HexNum {
 private:
-    string number;
-    int digits;
+  string number;
+  int digits;
 
 public:
-    // constructors
-    HexNum();
-    HexNum(string hex);
-    HexNum(int dec);
+  // constructors
+  HexNum();
+  HexNum(string hex);
+  HexNum(int dec);
 
-    // getters and setters
-    string getNumber();
-    int getDigits();
-    void setNumber(string number);
+  // getters and setters
+  string getNumber();
+  int getDigits();
+  void setNumber(string number);
 
-    // arithmetic functions
-    HexNum addNum(HexNum num);
-    HexNum subNum(HexNum num);
+  // arithmetic functions
+  HexNum addNum(HexNum num);
+  HexNum subNum(HexNum num);
 
-    // conversion
-    int toDecimal();
-    BinaryNum toBinary();
+  // conversion
+  int toDecimal();
+  BinaryNum *toBinary();
 };
 
 #endif

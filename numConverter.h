@@ -1,6 +1,6 @@
 #pragma once
-#include "numConverter.h"
-#include <iostream>
+#ifndef NUMCONVERT
+#define NUMCONVERT
 #include <string>
 using std::string;
 
@@ -22,3 +22,4 @@ public:
   // Concatenates the number and its type and returns
   inline string getNum() { return type + num; }
 };
+#endif // !NUMCONVERT

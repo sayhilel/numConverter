@@ -1,14 +1,8 @@
 #include "baseCalc.h"
+#include "util.hpp"
 #include <string>
 using std::string;
-
-map<string, string> hex2bin{
-    {"0001", "1"}, {"0010", "2"}, {"0011", "3"}, {"0100", "4"}, {"0101", "5"},
-    {"0110", "6"}, {"0111", "7"}, {"1000", "8"}, {"1001", "9"}, {"1010", "A"},
-    {"1011", "B"}, {"1100", "C"}, {"1101", "D"}, {"1110", "E"}, {"1111", "F"}};
-
 // Binary Num definitions here
-
 // constructors
 BinaryNum::BinaryNum(string binNum) {
   this->number = "0b" + binNum;
@@ -16,8 +10,8 @@ BinaryNum::BinaryNum(string binNum) {
 }
 
 BinaryNum::BinaryNum(int dec) {
-  // number = decimalToBinary(dec);
-  // bits = number.length();
+  number = dec2Bin(dec);
+  bits = number.length();
 }
 
 // getters
@@ -37,21 +31,22 @@ BinaryNum BinaryNum::addNum(BinaryNum toAdd) {}
 BinaryNum BinaryNum::subNum(BinaryNum toAdd) {}
 
 // conversion methods
-int BinaryNum::toDecimal() {}
+int BinaryNum::toDecimal() { return bin2Dec(number); }
 
-HexNum BinaryNum::toHex() {}
+HexNum *BinaryNum::toHex() { return new HexNum(bin2Hex(number, bits)); }
 
 // HexNum definitions here
 
 // constructors
 HexNum::HexNum(string hexNum) {
-  this->number = number;
+  this->number = hexNum;
   digits = number.length();
 }
 
 HexNum::HexNum(int dec) {
-  // number = decimalToHex(dec);
-  // digits = number.length();
+  string bin = dec2Bin(dec);
+  number = bin2Hex(bin, bin.length());
+  digits = number.length();
 }
 
 // getters
@@ -71,6 +66,10 @@ HexNum HexNum::addNum(HexNum toAdd) {}
 HexNum HexNum::subNum(HexNum toSub) {}
 
 // conversion methods
-int HexNum::toDecimal() {}
+int HexNum::toDecimal() {
+  int result = 0;
+  string bin = hex2Bin(number);
+  return bin2Dec(bin);
+}
 
-BinaryNum HexNum::toBinary() {}
+BinaryNum *HexNum::toBinary() { return new BinaryNum(hex2Bin(number)); }

@@ -3,7 +3,6 @@
 #include <cmath>
 #include <map>
 #include <string>
-
 using std::string;
 
 numCoverter::numCoverter(string num, string type) {
