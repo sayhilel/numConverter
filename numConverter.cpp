@@ -140,19 +140,3 @@ bool numConverter::convert(string newType)
 
   return false;
 }
-
-inline numConverter numConverter::operator+(const numConverter &other) const
-{
-  int temp1 = std::stoi(num);
-  int temp2 = std::stoi(other.num);
-  int result = temp1 + temp2;
-  return numConverter(std::to_string(result), type);
-}
-
-inline numConverter numConverter::operator-(const numConverter &other) const
-{
-  int temp1 = std::stoi(num);
-  int temp2 = std::stoi(other.num);
-  int result = temp1 - temp2;
-  return numConverter(std::to_string(result), type);
-}

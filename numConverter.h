@@ -34,9 +34,5 @@ public:
   {
     num = newNum;
   }
-
-  // operator overloads for arith
-  numConverter operator+(const numConverter &) const;
-  numConverter operator-(const numConverter &) const;
 };
 #endif // !NUMCONVERT
