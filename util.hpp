@@ -1,4 +1,3 @@
-#include "baseCalc.h"
 #include <iostream>
 #include <map>
 #include <string>
@@ -11,10 +10,6 @@ void seperator();
 void iprintMenu();
 void greeter();
 void printMenu();
-string dec2Bin(int dec);
-int bin2Dec(string bin);
-string hex2Bin(string hex);
-string bin2Hex(string bin, int bits);
 
 inline int BOX_WIDTH = 80;
 inline std::string BORDER_LINE(BOX_WIDTH, '-');
@@ -129,48 +124,3 @@ inline std::map<char, string> hexToBin = {
     {'4', "0100"}, {'5', "0101"}, {'6', "0110"}, {'7', "0111"},
     {'8', "1000"}, {'9', "1001"}, {'A', "1010"}, {'B', "1011"},
     {'C', "1100"}, {'D', "1101"}, {'E', "1110"}, {'F', "1111"}};
-
-inline string hex2Bin(string number) {
-  // string where to store binary result
-  string binResult = "";
-
-  // loop through hex num and convert to binary
-  for (int i = 0; i < number.length(); i++) {
-    binResult += hexToBin[number[i]];
-  }
-
-  // set up new BinNum object here
-  return binResult;
-}
-
-inline string bin2Hex(string bin, int bits) {
-  // string where to store hex result
-  string hexResult = "";
-  // check to see if string is % 4, pad accordingly
-  if (bits % 4 == 0) {
-    string pad = "";
-    int size = bits;
-    while (size % 4 != 0) {
-      pad += "0";
-    }
-    bin = pad + bin;
-  }
-
-  // start from end of string and go to start counting by 4 each time
-  int j = bits - 1;
-  for (int i = bits - 5; i >= 0; i -= 4) {
-    // add each char from map to resultString
-    for (auto entry : hexToBin) {
-      if (entry.second == bin.substr(i, j)) {
-        hexResult = entry.first + hexResult;
-        break; // Exit from the loop.
-      }
-    }
-  }
-
-  return hexResult;
-}
-
-inline int bin2Dec(string bin) {}
-
-inline string dec2Bin(int dec) {}

@@ -1,59 +1,36 @@
 #pragma once
 #ifndef FUNCTS
 #define FUNCTS
+#include "numConverter.h"
 #include <string>
 using std::string;
 
-class BinaryNum
+class BaseCalc
 {
 private:
-  string number;
-  int bits;
+  numConverter *num1;
+  numConverter *num2;
+
+  string orgType;
+
+  numConverter *result;
 
 public:
-  // constructors
-  BinaryNum();
-  BinaryNum(string bin);
-  BinaryNum(int dec);
+  // constructors and destructor
+  BaseCalc(numConverter, numConverter);
+  ~BaseCalc();
 
   // getters and setters
-  string getNumber();
-  int getBits();
-  void setNumber(string number);
+  string getNum1();
+  string getNum2();
+  string getResult();
 
-  // arithmetic functions
-  BinaryNum addNum(BinaryNum num);
-  BinaryNum subNum(BinaryNum num);
+  void setNum1(numConverter);
+  void setNum2(numConverter);
 
-  // conversion
-  int toDecimal();
-  HexNum *toHex();
-};
-
-class HexNum
-{
-private:
-  string number;
-  int digits;
-
-public:
-  // constructors
-  HexNum();
-  HexNum(string hex);
-  HexNum(int dec);
-
-  // getters and setters
-  string getNumber();
-  int getDigits();
-  void setNumber(string number);
-
-  // arithmetic functions
-  HexNum addNum(HexNum num);
-  HexNum subNum(HexNum num);
-
-  // conversion
-  int toDecimal();
-  BinaryNum *toBinary();
+  // arith functions
+  void addNum();
+  void subNum();
 };
 
 #endif

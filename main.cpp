@@ -45,6 +45,29 @@ int main(int argc, char *argv[])
         cerr << "Enter \"HELP\" to print out valid commands" << endl;
         continue;
       }
+
+      if (command == "hex")
+      {
+        // this should convert all numbers in ifile to hex regardless of starting base
+      }
+
+      if (command == "binary")
+      {
+        // convert all numbers in ifile to binary regardless of starting base
+      }
+
+      if (command == "decimal")
+      {
+        // convert all numbers in ifile to decimal regardless of starting base
+      }
+
+      if (command == "sum")
+      {
+        // sum up all numbers in ifile using the basecalc
+        // this will take the base of the first number in ifile
+        // setting num2 in baseCalc, effectively summing all numbers to result
+      }
+
       if (command == "help")
       {
         iprintMenu();
@@ -67,11 +90,6 @@ int main(int argc, char *argv[])
     // INIT NUMBER CLASS
 
     // BREAK - ME
-    if (!(cin >> value))
-    {
-      cerr << "ERROR: Inavlid Value" << endl;
-      return 1;
-    }
 
     printMenu();
 
@@ -89,6 +107,18 @@ int main(int argc, char *argv[])
         // convert to binary
       case 2:
         // convert to hex
+      case 3:
+        // add numbers together
+        // prompt for second value
+        // create binCalc
+        // perform subtraction
+        // print result
+      case 4:
+        // substract numbers
+        // prompt for second value
+        // create binCalc
+        // perform subtraction
+        // print result
       default:
         cout << "Invalid input" << endl;
         break;

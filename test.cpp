@@ -2,7 +2,21 @@
 #include <iostream>
 #include <string>
 
-int main() {
+bool conversionTest()
+{
+}
+
+bool additionTest()
+{
+}
+
+bool subtractionTest()
+{
+}
+
+int main(int argc, char **argv)
+{
+
   std::cout << "0xNUM for hex\n0bNUM for bin\nNUM for dec\n";
   std::string input;
   std::string type;

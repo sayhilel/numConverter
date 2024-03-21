@@ -1,5 +1,9 @@
 #include "numConverter.h"
 
+numConverter::numConverter()
+{
+}
+
 numConverter::numConverter(string num, string type)
 {
   this->num = num;
@@ -135,4 +139,22 @@ bool numConverter::convert(string newType)
   }
 
   return false;
+}
+
+inline numConverter *numConverter::operator+(const numConverter &other)
+{
+  int temp1 = std::stoi(num);
+  int temp2 = std::stoi(other.num);
+  temp1 += temp2;
+  string result = to_string(temp1);
+  return new numConverter(result, type);
+}
+
+inline numConverter *numConverter::operator+(const numConverter &other)
+{
+  int temp1 = std::stoi(num);
+  int temp2 = std::stoi(other.num);
+  temp1 -= temp2;
+  string result = to_string(temp1);
+  return new numConverter(result, type);
 }
