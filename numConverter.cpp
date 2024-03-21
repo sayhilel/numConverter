@@ -92,7 +92,7 @@ bool numConverter::convert(string newType)
 
   if (newType == "0b")
   {
-    if (numConverter::type == "0d")
+    if (type == "0d")
     {
       numConverter::type = newType;
       numConverter::num = convertD2B(num);
@@ -141,20 +141,18 @@ bool numConverter::convert(string newType)
   return false;
 }
 
-inline numConverter *numConverter::operator+(const numConverter &other)
+inline numConverter numConverter::operator+(const numConverter &other) const
 {
   int temp1 = std::stoi(num);
   int temp2 = std::stoi(other.num);
-  temp1 += temp2;
-  string result = to_string(temp1);
-  return new numConverter(result, type);
+  int result = temp1 + temp2;
+  return numConverter(std::to_string(result), type);
 }
 
-inline numConverter *numConverter::operator+(const numConverter &other)
+inline numConverter numConverter::operator-(const numConverter &other) const
 {
   int temp1 = std::stoi(num);
   int temp2 = std::stoi(other.num);
-  temp1 -= temp2;
-  string result = to_string(temp1);
-  return new numConverter(result, type);
+  int result = temp1 - temp2;
+  return numConverter(std::to_string(result), type);
 }

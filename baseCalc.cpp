@@ -3,14 +3,23 @@
 #include <string>
 using std::string;
 
-BaseCalc::BaseCalc(numConverter num1, numConverter num2)
+BaseCalc::BaseCalc(numConverter *num1, numConverter *num2)
 {
 
-    orgType = num1.getNum().substr(0, 3);
-    num1.convert("0d");
-    num2.convert("0d");
-    *(this->num1) = num1;
-    *(this->num2) = num2;
+    orgType = num1->getType();
+
+    if (num1->getType() != "0d")
+    {
+        num1->convert("0d");
+    }
+
+    if (num2->getType() != "0d")
+    {
+        num2->convert("0d");
+    }
+
+    this->num1 = num1;
+    this->num2 = num2;
     result = new numConverter("0", "0d");
 }
 
@@ -27,7 +36,7 @@ string BaseCalc::getNum2() { return num2->getNum(); }
 
 string BaseCalc::getResult()
 {
-    return "";
+    return result->getNum();
 };
 
 void BaseCalc::setNum1(numConverter num)
@@ -44,14 +53,33 @@ void BaseCalc::setNum2(numConverter num)
 
 void BaseCalc::addNum()
 {
-    result->convert("0d");
-    result = *num1 + *num2;
-    result->convert(orgType);
+    if (result->getType() != "0d")
+    {
+        result->convert("0d");
+    }
+
+    int n1 = num1->getValue();
+    int n2 = num2->getValue();
+    int r = n1 + n2;
+    result->setNum(to_string(r));
+    if (result->getType() != orgType)
+    {
+        result->convert(orgType);
+    }
 }
 
 void BaseCalc::subNum()
 {
-    result->convert("0d");
-    result = *num1 - *num2;
-    result->convert(orgType);
+    if (result->getType() != "0d")
+    {
+        result->convert("0d");
+    }
+    int n1 = num1->getValue();
+    int n2 = num2->getValue();
+    int r = n1 - n2;
+    result->setNum(to_string(r));
+    if (result->getType() != orgType)
+    {
+        result->convert(orgType);
+    }
 }

@@ -17,7 +17,7 @@ private:
 
 public:
   // constructors and destructor
-  BaseCalc(numConverter, numConverter);
+  BaseCalc(numConverter *, numConverter *);
   ~BaseCalc();
 
   // getters and setters

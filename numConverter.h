@@ -28,9 +28,15 @@ public:
   bool convert(string newType);
   // Concatenates the number and its type and returns
   inline string getNum() { return type + num; }
+  inline int getValue() { return std::stoi(num); }
+  inline string getType() { return type; }
+  inline void setNum(string newNum)
+  {
+    num = newNum;
+  }
 
   // operator overloads for arith
-  numConverter *operator+(const numConverter &);
-  numConverter *operator-(const numConverter &);
+  numConverter operator+(const numConverter &) const;
+  numConverter operator-(const numConverter &) const;
 };
 #endif // !NUMCONVERT
