@@ -1,7 +1,7 @@
 #include <iostream>
 #include <map>
 #include <string>
-using std::string;
+using std::string, std::cout, std::endl;
 
 std::string toLower(const std::string &str);
 bool nextCommand(std::string &command, std::string &subCommand,
@@ -93,10 +93,12 @@ inline void greeter() {
 inline void printMenu() {
 
   seperator();
-  std::cout << "Menu:" << std::endl;
-  std::cout << "0. Exit" << std::endl;
-  std::cout << "1. Convert to binary" << std::endl;
-  std::cout << "2. Convert to hex" << std::endl;
+  cout << "Menu:" << std::endl;
+  cout << "0. Exit" << std::endl;
+  cout << "1. Convert to binary" << std::endl;
+  cout << "2. Convert to hex" << std::endl;
+  cout << "3. Convert to decimal" << endl;
+  cout << "4. Arithmetic Operations" << endl;
   seperator();
 }
 

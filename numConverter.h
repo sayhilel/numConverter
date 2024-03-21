@@ -4,7 +4,6 @@
 #include <string>
 #include <cmath>
 #include <map>
-
 #include "util.hpp"
 
 using namespace std;

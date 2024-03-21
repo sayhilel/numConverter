@@ -1,6 +1,5 @@
 #include "baseCalc.h"
 #include "numConverter.h"
-#include "util.hpp"
 #include <iostream>
 #include <ostream>
 #include <string>
@@ -24,7 +23,7 @@ void arithFunct(numConverter *num1) {
   BaseCalc temp(num1, num2);
 
   int select;
-  cout << "Would you like to add or subtract the numbers" << endl;
+  cout << "Choose a function to perform:" << endl;
   cout << "[0] add" << endl;
   cout << "[1] sub" << endl;
   cin >> select;
@@ -41,7 +40,7 @@ void arithFunct(numConverter *num1) {
   cout << temp.getResult() << endl;
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char **argv) {
 
   // Variables used
   string command;
@@ -49,7 +48,7 @@ int main(int argc, char *argv[]) {
   size_t position;
 
   int input;
-  double value;
+  // double value;
 
   // Check usage
   if (argc < 4) {
