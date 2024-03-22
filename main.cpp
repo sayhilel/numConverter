@@ -1,182 +1,251 @@
 #include "BaseNumber.h"
+#include "util.hpp"
+#include <fstream>
 #include <iostream>
 #include <ostream>
-#include <string>
-
+#include <vector>
 using namespace std;
 
-BaseNumber *getInput()
-{
-    string inVal;
+BaseNumber *getInput() {
+  string inVal;
 
-    // Loop until valid input is received
-    while (true)
-    {
-        cout << "Enter value and type (Prefix with 0x for hex, 0b for binary, or 0d for decimal)\n> ";
-        cin >> inVal;
+  // Loop until valid input is received
+  while (true) {
+    cout << "Enter value and type (Prefix with 0x for hex, 0b for binary, or "
+            "0d for decimal)\n> ";
+    cin >> inVal;
 
-        if (inVal.length() > 2 &&
-            (inVal.substr(0, 2) == "0x" || inVal.substr(0, 2) == "0b" || inVal.substr(0, 2) == "0d"))
-        {
-            string type = inVal.substr(0, 2);
-            string value = inVal.substr(2);
+    if (inVal.length() > 2 &&
+        (inVal.substr(0, 2) == "0x" || inVal.substr(0, 2) == "0b" ||
+         inVal.substr(0, 2) == "0d")) {
+      string type = inVal.substr(0, 2);
+      string value = inVal.substr(2);
 
-            return new BaseNumber(value, type);
-        }
-        else
-        {
-            cout << "Invalid input. Try again." << endl;
-        }
+      return new BaseNumber(value, type);
+    } else {
+      cout << "Invalid input. Try again." << endl;
     }
+  }
 }
 
-BaseNumber arithFunct(BaseNumber *num1)
-{
-    string typeTo = num1->getType();
-    cout << "Enter a number: " << endl;
-    BaseNumber *num2 = getInput();
-    BaseNumber *result = new BaseNumber("0", "0d");
-    // BaseCalc temp(num1, num2);
+BaseNumber arithFunct(BaseNumber *num1) {
+  string typeTo = num1->getType();
+  cout << "Enter a number: " << endl;
+  BaseNumber *num2 = getInput();
+  BaseNumber *result = new BaseNumber("0", "0d");
+  // BaseCalc temp(num1, num2);
 
-    num1->convertTo("0d");
-    num2->convertTo("0d");
+  num1->convertTo("0d");
+  num2->convertTo("0d");
 
-    int select;
-    cout << "Choose a function to perform:" << endl;
-    cout << "[0] add" << endl;
-    cout << "[1] sub" << endl;
+  int select;
+  cout << "Choose a function to perform:" << endl;
+  cout << "[0] add" << endl;
+  cout << "[1] sub" << endl;
 
-    while (1)
-    {
-        cin >> select;
+  while (1) {
+    cin >> select;
 
-        if (select == 0)
-        {
-            result = *num1 + *num2;
-            break;
-        }
-        else if (select == 1)
-        {
-            result = *num1 - *num2;
-            break;
-        }
-        else
-        {
-            cout << "Incorrect input, try again" << endl;
-        }
+    if (select == 0) {
+      result = *num1 + *num2;
+      break;
+    } else if (select == 1) {
+      result = *num1 - *num2;
+      break;
+    } else {
+      cout << "Incorrect input, try again" << endl;
     }
+  }
 
-    result->convertTo(typeTo);
-    cout << result->getNum() << endl;
-    return *result;
+  result->convertTo(typeTo);
+  cout << result->getNum() << endl;
+  return *result;
 }
 
-int getMenuChoice()
-{
-    int choice;
-    cout << "Enter your choice: ";
-    while (!(cin >> choice))
-    {
-        cin.clear(); // Clear the error flag
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Invalid input. Please enter a number: ";
-    }
-    return choice;
+int getMenuChoice() {
+  int choice;
+  cout << "Enter your choice: ";
+  while (!(cin >> choice)) {
+    cin.clear(); // Clear the error flag
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "Invalid input. Please enter a number: ";
+  }
+  return choice;
 }
 
-void handleMenuChoice(int choice, BaseNumber *currentNum)
-{
-    // Handle the choice here. For example:
-    switch (choice)
-    {
-    case 1:
-        cout << "Converting to binary..." << endl;
-        currentNum->convertTo("0b");
-        cout << currentNum->getNum() << endl;
-        break;
-    case 2:
-        cout << "Converting to hex..." << endl;
-        currentNum->convertTo("0x");
-        cout << currentNum->getNum() << endl;
-        break;
-    case 3:
-        cout << "Converting to decimal..." << endl;
-        currentNum->convertTo("0d");
-        cout << currentNum->getNum() << endl;
-        break;
-    case 4:
-        cout << "Performing arithmetic operations..." << endl;
-        *currentNum = arithFunct(currentNum);
-        break;
-    default:
-        cout << "Invalid choice." << endl;
-        break;
+void handleMenuChoice(int choice, BaseNumber *currentNum) {
+  // Handle the choice here. For example:
+  switch (choice) {
+  case 1:
+    cout << "Converting to binary..." << endl;
+    currentNum->convertTo("0b");
+    cout << currentNum->getNum() << endl;
+    break;
+  case 2:
+    cout << "Converting to hex..." << endl;
+    currentNum->convertTo("0x");
+    cout << currentNum->getNum() << endl;
+    break;
+  case 3:
+    cout << "Converting to decimal..." << endl;
+    currentNum->convertTo("0d");
+    cout << currentNum->getNum() << endl;
+    break;
+  case 4:
+    cout << "Performing arithmetic operations..." << endl;
+    *currentNum = arithFunct(currentNum);
+    break;
+  default:
+    cout << "Invalid choice." << endl;
+    break;
+  }
+}
+void initializeArray(vector<BaseNumber> &numArray, string ifile) {
+  ifstream file(ifile);
+  if (!file) {
+    cerr << "ERROR: File not found" << endl;
+    exit(1);
+  }
+  string num;
+  while (file >> num) {
+    if (num.length() < 3) {
+      cerr << "ERROR: Invalid input, continuiung" << endl;
+      continue;
     }
+    BaseNumber currentNum = BaseNumber(num.substr(2), num.substr(0, 2));
+    numArray.push_back(currentNum);
+  }
+  file.close();
 }
 
-int main(int argc, char **argv)
-{
-    if (argc < 4)
-    {
-        cerr << "Usage: ./program <ifile> <ofile> <mode>" << endl;
-        return 1;
+void convertArray(vector<BaseNumber> &numArray, string type) {
+  for (size_t i = 0; i < numArray.size(); i++) {
+    numArray[i].convertTo(type);
+    cout << "Converted: " << numArray[i].getNum() << endl;
+  }
+}
+
+void saveArray(vector<BaseNumber> &numArray, string ofile) {
+  ofstream file(ofile);
+  if (!file) {
+    cerr << "ERROR: File not found" << endl;
+    exit(1);
+  }
+  for (size_t i = 0; i < numArray.size(); i++) {
+    file << numArray[i].getNum() << endl;
+  }
+  file.close();
+}
+
+double totalArray(vector<BaseNumber> &numArray) {
+  double total = 0;
+  for (size_t i = 0; i < numArray.size(); i++) {
+    total += numArray[i].getValue();
+  }
+  return total;
+}
+
+int main(int argc, char **argv) {
+  if (argc < 4) {
+    cerr << "Usage: ./program <ifile> <ofile> <mode>" << endl;
+    return 1;
+  }
+
+  string mode(argv[3]);
+  if (mode != "0" && mode != "1") {
+    cerr << "Error: Incorrect mode" << endl;
+    return 1;
+  }
+
+  greeter();
+
+  if (mode == "1") {
+    cout << "Manual mode selected!" << endl;
+    BaseNumber *currentNum = getInput();
+
+    int choice = -1;
+    while (choice != 0) {
+      printMenu();
+      choice = getMenuChoice();
+      if (choice == 0) {
+        cout << "Exiting..." << endl;
+        break;
+      }
+      handleMenuChoice(choice, currentNum);
     }
+    delete currentNum;
+  } else if (mode == "0") {
+    cout << "Automatic mode selected. Type \"Help\" to see usage instructions."
+         << endl;
+    iprintMenu();
+    string command, subCommand;
+    vector<BaseNumber> numArray;
+    while (true) {
+      if (!nextCommand(command, subCommand)) {
+        cerr << "ERROR: Invalid input" << endl;
+        cerr << "Enter \"HELP\" to print out valid commands" << endl;
 
-    string mode(argv[3]);
-    if (mode != "0" && mode != "1")
-    {
-        cerr << "Error: Incorrect mode" << endl;
-        return 1;
-    }
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-    greeter();
+        continue;
+      }
 
-    if (mode == "1")
-    {
-        cout << "Manual mode selected!" << endl;
-        BaseNumber *currentNum = getInput();
-
-        int choice = -1;
-        while (choice != 0)
-        {
-            printMenu();
-            choice = getMenuChoice();
-            if (choice == 0)
-            {
-                cout << "Exiting..." << endl;
-                break;
-            }
-            handleMenuChoice(choice, currentNum);
-        }
-        delete currentNum;
-    }
-    else if (mode == "0")
-    {
-        cout << "Automatic mode selected. Type \"Help\" to see usage instructions." << endl;
+      if (command == "help") {
         iprintMenu();
-        string command, subCommand;
-        size_t position;
-        while (true)
-        {
-            if (!nextCommand(command, subCommand, &position))
-            {
-                cerr << "ERROR: Invalid input. Enter \"HELP\" to print out valid commands." << endl;
-                continue;
-            }
+        continue;
+      }
 
-            if (command == "hex")
-            {
-                // this should convert all numbers in ifile to hex regardless of
-                // starting base
-            }
-            // TODO:....rest
-            if (command == "stop")
-            {
-                cout << "Exiting..." << endl;
-                break;
-            }
+      if (command == "stop") {
+        cout << "Exiting..." << endl;
+        break;
+      }
+
+      if (command == "init") {
+        initializeArray(numArray, argv[1]);
+        continue;
+      }
+
+      if (command == "convert") {
+        if (numArray.empty()) {
+          cerr << "ERROR: Array is empty" << endl;
+          continue;
         }
-    }
+        convertArray(numArray, subCommand);
+        continue;
+      }
 
-    return 0;
+      if (command == "print") {
+        if (numArray.empty()) {
+          cerr << "ERROR: Array is empty" << endl;
+          continue;
+        }
+        for (size_t i = 0; i < numArray.size(); i++) {
+          cout << "printing: " << numArray[i].getNum() << endl;
+        }
+        continue;
+      }
+
+      if (command == "save") {
+        if (numArray.empty()) {
+          cerr << "ERROR: Array is empty" << endl;
+          continue;
+        }
+
+        saveArray(numArray, argv[2]);
+        continue;
+      }
+
+      if (command == "total") {
+        if (numArray.empty()) {
+          cerr << "ERROR: Array is empty" << endl;
+          continue;
+        }
+
+        cout << "Total:" << totalArray(numArray) << endl;
+      }
+    }
+  }
+
+  return 0;
 }
