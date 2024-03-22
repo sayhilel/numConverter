@@ -48,8 +48,64 @@ void BaseNumber::toDecimal() {
     value = to_string(decimalResult);
 }
 
+void BaseNumber::toBinary() {
+    // Initialize result variable
+    string binaryString = "";
 
+    if (type == "0d") {
+        // Decimal to binary conversion
+        int n = stoi(value);
+        while (n > 0) {
+            binaryString = to_string(n % 2) + binaryString;
+            n /= 2;
+        }
+    } else if (type == "0x") {
+        // Convert hex to binary
+        for (size_t i = 0; i < value.length(); ++i) {
+            if (hexToBin.find(value[i]) == hexToBin.end()) {
+                cout << "ERROR: Invalid hex\n";
+                return; // Exit on invalid hexadecimal input
+            }
+            binaryString += hexToBin[value[i]];
+        }
 
+    } else {
+        cout << "ERROR: Unsupported type for conversion\n";
+        return;
+    }
+
+    // Update the number's type and value to the converted result
+    type = "0b"; // set type to binary
+    value = binaryString;
+}
+
+void BaseNumber::toHex() {
+    // Initialize result variable
+    string hexResult = "";
+
+    toBinary();
+
+    while (value.length() % 4 != 0)
+    {
+        value = "0" + value;
+    }
+
+    for (size_t i = 0; i < value.length(); i += 4)
+    {
+        string temp = value.substr(i, 4);
+        for (const auto &pair : hexToBin)
+        {
+            if (pair.second == temp)
+            {
+                value += pair.first;
+            }
+        }
+    }
+
+    // Update the number's type and value to the converted result
+    type = "0x"; // set type to binary
+    value = hexResult;
+}
 
 bool BaseNumber::convertTo(const string& newType) {
     if (newType == this->type) {
