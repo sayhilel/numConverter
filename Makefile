@@ -1,27 +1,31 @@
-OBJS = numConverter.o baseCalc.o
+OBJS = BaseNumber.o baseCalc.o
 TEST = tester
 EXE = calculator 
-CC = g++-12
+CC = g++
 CFLAGS += -g -c -Wall -Werror -std=c++17
 LFLAGS += -Wall
 
-$(EXE) : main.o $(OBJS)
+.PHONY: all $(EXE) $(TEST) clean
+
+all: $(EXE)
+
+$(EXE): main.o $(OBJS)
 	$(CC) $(LFLAGS) main.o $(OBJS) -o $(EXE)
 
-$(TEST) : test.o $(OBJS)
+$(TEST): test.o $(OBJS)
 	$(CC) $(LFLAGS) test.o $(OBJS) -o $(TEST)
 
-main.o : numConverter.h baseCalc.h
+main.o: BaseNumber.h baseCalc.h
 	$(CC) $(CFLAGS) main.cpp
 
-test.o : numConverter.h baseCalc.h
+test.o: BaseNumber.h baseCalc.h
 	$(CC) $(CFLAGS) test.cpp
 
-baseCalc.o : baseCalc.h
+baseCalc.o: baseCalc.h
 	$(CC) $(CFLAGS) baseCalc.cpp
 
-numConverter.o: numConverter.h
-	$(CC) $(CFLAGS) numConverter.cpp
+BaseNumber.o: BaseNumber.h
+	$(CC) $(CFLAGS) BaseNumber.cpp
 
 clean:
-	rm -f *.o $(EXE)
+	rm -f *.o $(EXE) $(TEST)

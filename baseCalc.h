@@ -1,23 +1,24 @@
 #pragma once
 #ifndef FUNCTS
 #define FUNCTS
-#include "numConverter.h"
+#include "BaseNumber.h"
 #include <string>
-using std::string;
+
+using namespace std;
 
 class BaseCalc
 {
 private:
-  numConverter *num1;
-  numConverter *num2;
+    BaseNumber *num1;
+    BaseNumber *num2;
 
   string orgType;
 
-  numConverter *result;
+    BaseNumber *result;
 
 public:
   // constructors and destructor
-  BaseCalc(numConverter *, numConverter *);
+  BaseCalc(BaseNumber *, BaseNumber *);
   ~BaseCalc();
 
   // getters and setters
@@ -25,8 +26,8 @@ public:
   string getNum2();
   string getResult();
 
-  void setNum1(numConverter);
-  void setNum2(numConverter);
+  void setNum1(BaseNumber);
+  void setNum2(BaseNumber);
 
   // arith functions
   void addNum();
