@@ -145,7 +145,6 @@ int main(int argc, char **argv) {
 
       if (command == "total") {
         double total = 0;
-
         for (size_t i = 0; i < numArray.size(); i++) {
           type = extractType(numArray[i]);
           value = extractValue(numArray[i]);
@@ -158,7 +157,14 @@ int main(int argc, char **argv) {
           }
           total += currentNum.getValue();
         }
-        cout << "Total: " << total << endl;
+        type = extractType(numArray[0]);
+
+        numConverter totalNum = numConverter(to_string(total), "0d");
+        if (type != "0d") {
+          totalNum.convertManual(type);
+        }
+
+        cout << "Total: " << totalNum.getNum() << endl;
       }
     }
   }

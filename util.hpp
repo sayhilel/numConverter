@@ -27,7 +27,7 @@ inline bool nextCommand(std::string &command, std::string &subCommand,
   command = toLower(command); // BREAK-ME
 
   if ((command == "init") || (command == "save") || (command == "stop") ||
-      (command == "help") || (command == "print"))
+      (command == "help") || (command == "print") || (command == "total"))
     return true;
 
   if (command == "convert") {
