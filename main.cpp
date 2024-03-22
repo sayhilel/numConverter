@@ -16,8 +16,8 @@ BaseNumber *getInput() {
 
         if (inVal.length() > 2 &&
             (inVal.substr(0, 2) == "0x" || inVal.substr(0, 2) == "0b" || inVal.substr(0, 2) == "0d")) {
-            string type = inVal.substr(0, 2); // Extract the type based on the prefix
-            string value = inVal.substr(2); // Extract the value after the prefix
+            string type = inVal.substr(0, 2);
+            string value = inVal.substr(2);
 
             return new BaseNumber(value, type);
         } else {
@@ -55,7 +55,7 @@ int getMenuChoice() {
     cout << "Enter your choice: ";
     while (!(cin >> choice)) {
         cin.clear(); // Clear the error flag
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard the input
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout << "Invalid input. Please enter a number: ";
     }
     return choice;
@@ -101,7 +101,7 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    greeter(); // Assume greeter() is defined elsewhere to print a greeting or instructions
+    greeter();
 
     if (mode == "1") {
         cout << "Manual mode selected!" << endl;
@@ -117,7 +117,7 @@ int main(int argc, char **argv) {
             }
             handleMenuChoice(choice, currentNum);
         }
-        delete currentNum; // Clean up dynamically allocated memory
+        delete currentNum;
     } else if (mode == "0") {
         cout << "Automatic mode selected. Type \"Help\" to see usage instructions." << endl;
 
