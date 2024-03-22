@@ -160,7 +160,8 @@ string totalArray(vector<BaseNumber> &numArray) {
     numArray[i].convertTo(currentType);
   }
 
-  BaseNumber totalNum = BaseNumber(to_string(total), initalType);
+  BaseNumber totalNum = BaseNumber(to_string(total), "0d");
+  totalNum.convertTo(initalType);
   return totalNum.getNum();
 }
 
