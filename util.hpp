@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <map>
 #include <string>
@@ -6,10 +7,6 @@ using std::string, std::cout, std::endl;
 std::string toLower(const std::string &str);
 bool nextCommand(std::string &command, std::string &subCommand,
                  size_t *position);
-void seperator();
-void iprintMenu();
-void greeter();
-void printMenu();
 
 inline int BOX_WIDTH = 80;
 inline std::string BORDER_LINE(BOX_WIDTH, '-');
@@ -30,7 +27,7 @@ inline bool nextCommand(std::string &command, std::string &subCommand,
   command = toLower(command); // BREAK-ME
 
   if ((command == "init") || (command == "save") || (command == "stop") ||
-      (command == "help"))
+      (command == "help") || (command == "print"))
     return true;
 
   if (command == "convert") {
@@ -43,12 +40,6 @@ inline bool nextCommand(std::string &command, std::string &subCommand,
           (subCommand == "b2d") || (subCommand == "h2d")) {
         return true;
       }
-    }
-  }
-
-  if (command == "print") {
-    if (std::cin >> *position) {
-      return true;
     }
   }
 
@@ -102,22 +93,22 @@ inline void printMenu() {
   seperator();
 }
 
-inline std::string extractType(std::string *input) {
+inline std::string extractType(std::string input) {
 
   // <BREAK-ME>
   std::string type = "0d";
 
-  if (input->size() >= 2 && (*input)[0] == '0') {
-    if ((*input)[1] == 'x' || (*input)[1] == 'X') {
+  if (input.size() >= 2 && (input[0] == '0')) {
+    if (input[1] == 'x' || input[1] == 'X') {
       type = "0x";
-      *input = input->substr(2);
-    } else if ((*input)[1] == 'b' || (*input)[1] == 'B') {
+    } else if ((input[1] == 'b') || (input[1] == 'B')) {
       type = "0b";
-      *input = input->substr(2);
     }
   }
   return type;
 }
+
+inline std::string extractValue(std::string input) { return input.substr(2); }
 
 // HEX TO BINARY MAP
 

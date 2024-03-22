@@ -1,19 +1,27 @@
 #include "baseCalc.h"
 #include "numConverter.h"
+#include "util.hpp"
+#include <fstream>
 #include <iostream>
 #include <ostream>
 #include <string>
-using std::cin, std::cout, std::cerr, std::endl, std::string;
+#include <vector>
+using std::cin, std::cout, std::cerr, std::endl, std::string, std::vector,
+    std::ifstream;
 
 numConverter *getInput() {
   string inVal;
   cin >> inVal;
 
+  if (inVal.size() < 3) {
+    cerr << "ERROR: Invalid input" << endl;
+    exit(1);
+  }
   // parse input and store into numConverter object
   string type;
   string value;
-  type = extractType(&inVal);
-  value = inVal.substr(2, inVal.length());
+  type = extractType(inVal);
+  value = extractValue(inVal);
   return new numConverter(value, type);
 }
 
@@ -47,6 +55,9 @@ int main(int argc, char **argv) {
   string subCommand;
   size_t position;
 
+  vector<string> numArray;
+  string type;
+  string value;
   int input;
   // double value;
 
@@ -73,35 +84,81 @@ int main(int argc, char **argv) {
       if (!nextCommand(command, subCommand, &position)) {
         cerr << "ERROR: Invalid input" << endl;
         cerr << "Enter \"HELP\" to print out valid commands" << endl;
+
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
         continue;
       }
 
-      if (command == "hex") {
-        // this should convert all numbers in ifile to hex regardless of
-        // starting base
-      }
-
-      if (command == "binary") {
-        // convert all numbers in ifile to binary regardless of starting base
-      }
-
-      if (command == "decimal") {
-        // convert all numbers in ifile to decimal regardless of starting base
-      }
-
-      if (command == "sum") {
-        // sum up all numbers in ifile using the basecalc
-        // this will take the base of the first number in ifile
-        // setting num2 in baseCalc, effectively summing all numbers to result
-      }
-
-      if (command == "help") {
-        iprintMenu();
-      }
-
       if (command == "stop") {
-        cout << "Exiting...." << endl;
-        return 0;
+        cout << "Exiting program" << endl;
+        break;
+      }
+
+      if (command == "init") {
+        ifstream file((argv[1]));
+        if (!file) {
+          cerr << "ERROR: File not found" << endl;
+          exit(1);
+        }
+
+        string readNum;
+        while (file >> readNum) {
+          numArray.push_back(readNum);
+        }
+
+        cout << "Read " << numArray.size() << " number(s)" << endl;
+        file.close();
+        continue;
+      }
+
+      if (command == "convert") {
+        for (size_t i = 0; i < numArray.size(); i++) {
+          type = extractType(numArray[i]);
+          value = extractValue(numArray[i]);
+          numConverter currentNum = numConverter(value, type);
+          currentNum.convert(subCommand);
+          numArray[i] = currentNum.getNum();
+        }
+      }
+
+      if (command == "print") {
+        for (size_t i = 0; i < numArray.size(); i++) {
+          cout << "printing: " << numArray[i] << endl;
+        }
+        continue;
+      }
+
+      if (command == "save") {
+        ofstream file((argv[2]));
+        if (!file) {
+          cerr << "ERROR: File not found" << endl;
+          exit(1);
+        }
+        for (size_t i = 0; i < numArray.size(); i++) {
+          file << numArray[i] << endl;
+        }
+        cout << "File saved" << endl;
+        file.close();
+      }
+
+      if (command == "total") {
+        double total = 0;
+
+        for (size_t i = 0; i < numArray.size(); i++) {
+          type = extractType(numArray[i]);
+          value = extractValue(numArray[i]);
+          numConverter currentNum = numConverter(value, type);
+          if (type == "0b") {
+            currentNum.convert("b2d");
+          }
+          if (type == "0x") {
+            currentNum.convert("h2d");
+          }
+          total += currentNum.getValue();
+        }
+        cout << "Total: " << total << endl;
       }
     }
   }
@@ -127,17 +184,17 @@ int main(int argc, char **argv) {
       switch (input) {
       case 1:
         // convert to binary
-        currentNum->convert("0b");
+        currentNum->convertManual("0b");
         cout << currentNum->getNum() << endl;
         break;
       case 2:
         // convert to hex
-        currentNum->convert("0x");
+        currentNum->convertManual("0x");
         cout << currentNum->getNum() << endl;
         break;
       case 3:
         // convert to decimal
-        currentNum->convert("0d");
+        currentNum->convertManual("0d");
         cout << currentNum->getNum() << endl;
         break;
       case 4:

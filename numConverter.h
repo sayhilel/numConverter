@@ -1,15 +1,14 @@
 #pragma once
 #ifndef NUMCONVERT
 #define NUMCONVERT
-#include <string>
+#include "util.hpp"
 #include <cmath>
 #include <map>
-#include "util.hpp"
+#include <string>
 
 using namespace std;
 
-class numConverter
-{
+class numConverter {
 private:
   string num;
   string type;
@@ -25,13 +24,11 @@ public:
   numConverter(string num, string type);
   // Changes the type of the number to newType
   bool convert(string newType);
+  bool convertManual(string newType);
   // Concatenates the number and its type and returns
   inline string getNum() { return type + num; }
   inline int getValue() { return std::stoi(num); }
   inline string getType() { return type; }
-  inline void setNum(string newNum)
-  {
-    num = newNum;
-  }
+  inline void setNum(string newNum) { num = newNum; }
 };
 #endif // !NUMCONVERT
