@@ -1,11 +1,8 @@
 #include "BaseNumber.h"
 
-BaseNumber::BaseNumber() {
+BaseNumber::BaseNumber() {}
 
-}
-
-BaseNumber::BaseNumber(const string& value, const string& type) : value(value), type(type) {
-}
+BaseNumber::BaseNumber(const string &value, const string &type) : value(value), type(type) {}
 
 void BaseNumber::toDecimal() {
     // Initialize result variable
@@ -85,18 +82,14 @@ void BaseNumber::toHex() {
 
     toBinary();
 
-    while (value.length() % 4 != 0)
-    {
+    while (value.length() % 4 != 0) {
         value = "0" + value;
     }
 
-    for (size_t i = 0; i < value.length(); i += 4)
-    {
+    for (size_t i = 0; i < value.length(); i += 4) {
         string temp = value.substr(i, 4);
-        for (const auto &pair : hexToBin)
-        {
-            if (pair.second == temp)
-            {
+        for (const auto &pair: hexToBin) {
+            if (pair.second == temp) {
                 hexResult += pair.first;
             }
         }
@@ -107,7 +100,7 @@ void BaseNumber::toHex() {
     value = hexResult;
 }
 
-bool BaseNumber::convertTo(const string& newType) {
+bool BaseNumber::convertTo(const string &newType) {
     if (newType == this->type) {
         cerr << "ERROR: Number is already of type " << newType << endl;
         return false;

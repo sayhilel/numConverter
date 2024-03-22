@@ -6,7 +6,7 @@
 
 using namespace std;
 
-BaseNumber* getInput() {
+BaseNumber *getInput() {
     string inVal;
 
     // Loop until valid input is received
@@ -14,7 +14,8 @@ BaseNumber* getInput() {
         cout << "Enter value and type (Prefix with 0x for hex, 0b for binary, or 0d for decimal)\n> ";
         cin >> inVal;
 
-        if (inVal.length() > 2 && (inVal.substr(0, 2) == "0x" || inVal.substr(0, 2) == "0b" || inVal.substr(0, 2) == "0d")) {
+        if (inVal.length() > 2 &&
+            (inVal.substr(0, 2) == "0x" || inVal.substr(0, 2) == "0b" || inVal.substr(0, 2) == "0d")) {
             string type = inVal.substr(0, 2); // Extract the type based on the prefix
             string value = inVal.substr(2); // Extract the value after the prefix
 
@@ -26,30 +27,28 @@ BaseNumber* getInput() {
 }
 
 
+void arithFunct(BaseNumber *num1) {
+    cout << "Enter a number: " << endl;
+    BaseNumber *num2 = getInput();
+    BaseCalc temp(num1, num2);
 
+    int select;
+    cout << "Choose a function to perform:" << endl;
+    cout << "[0] add" << endl;
+    cout << "[1] sub" << endl;
+    cin >> select;
 
-//void arithFunct(BaseNumber *num1) {
-//    cout << "Enter a number: " << endl;
-//    BaseNumber *num2 = getInput();
-//    BaseCalc temp(num1, num2);
-//
-//    int select;
-//    cout << "Choose a function to perform:" << endl;
-//    cout << "[0] add" << endl;
-//    cout << "[1] sub" << endl;
-//    cin >> select;
-//
-//    if (select == 0) {
-//        temp.addNum();
-//    } else if (select == 1) {
-//        temp.subNum();
-//    } else {
-//        cout << "Incorrect input" << endl;
-//        return;
-//    }
-//
-//    cout << temp.getResult() << endl;
-//}
+    if (select == 0) {
+        temp.addNum();
+    } else if (select == 1) {
+        temp.subNum();
+    } else {
+        cout << "Incorrect input" << endl;
+        return;
+    }
+
+    cout << temp.getResult() << endl;
+}
 
 int getMenuChoice() {
     int choice;
@@ -62,7 +61,7 @@ int getMenuChoice() {
     return choice;
 }
 
-void handleMenuChoice(int choice, BaseNumber* currentNum) {
+void handleMenuChoice(int choice, BaseNumber *currentNum) {
     // Handle the choice here. For example:
     switch (choice) {
         case 1:
@@ -82,7 +81,7 @@ void handleMenuChoice(int choice, BaseNumber* currentNum) {
             break;
         case 4:
             cout << "Performing arithmetic operations..." << endl;
-            // Arithmetic operations logic here
+            arithFunct(currentNum);
             break;
         default:
             cout << "Invalid choice." << endl;
@@ -106,7 +105,7 @@ int main(int argc, char **argv) {
 
     if (mode == "1") {
         cout << "Manual mode selected!" << endl;
-        BaseNumber* currentNum = getInput();
+        BaseNumber *currentNum = getInput();
 
         int choice = -1;
         while (choice != 0) {
