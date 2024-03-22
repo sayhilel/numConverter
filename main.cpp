@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <ostream>
+#include <string>
 #include <vector>
 
 using namespace std;
@@ -115,6 +116,13 @@ void initializeArray(vector<BaseNumber> &numArray, string ifile) {
     BaseNumber currentNum = BaseNumber(num.substr(2), num.substr(0, 2));
     numArray.push_back(currentNum);
   }
+
+  if (numArray.empty()) {
+    cerr << "ERROR: No valid numbers found in file" << endl;
+    exit(1);
+  }
+
+  cout << "Array initialized" << endl;
   file.close();
 }
 
@@ -134,16 +142,26 @@ void saveArray(vector<BaseNumber> &numArray, string ofile) {
   for (size_t i = 0; i < numArray.size(); i++) {
     file << numArray[i].getNum() << endl;
   }
+
+  cout << "Array Saved" << endl;
   file.close();
 }
 
-double totalArray(vector<BaseNumber> &numArray) {
-  double total = 0;
+string totalArray(vector<BaseNumber> &numArray) {
+
+  string initalType = numArray[0].getType();
+  string currentType;
+
+  int total = 0;
   for (size_t i = 0; i < numArray.size(); i++) {
+    currentType = numArray[i].getType();
     numArray[i].convertTo("0d");
     total += numArray[i].getValue();
+    numArray[i].convertTo(currentType);
   }
-  return total;
+
+  BaseNumber totalNum = BaseNumber(to_string(total), initalType);
+  return totalNum.getNum();
 }
 
 int main(int argc, char **argv) {
@@ -223,7 +241,7 @@ int main(int argc, char **argv) {
           continue;
         }
         for (size_t i = 0; i < numArray.size(); i++) {
-          cout << "printing: " << numArray[i].getNum() << endl;
+          cout << i + 1 << ") " << numArray[i].getNum() << endl;
         }
         continue;
       }
