@@ -1,9 +1,13 @@
 #include "BaseNumber.h"
 
+// Constructors
+
 BaseNumber::BaseNumber() {}
 
 BaseNumber::BaseNumber(const string &value, const string &type)
     : value(value), type(type) {}
+
+// Conversion methods (decimal, binary, hexadecimal)
 
 void BaseNumber::toDecimal() {
   // Initialize result variable
@@ -101,6 +105,9 @@ void BaseNumber::toHex() {
   type = "0x"; // set type to hex
   value = hexResult;
 }
+
+// this method takes the number type and performs different conversions to get
+// it to the desired type
 
 bool BaseNumber::convertTo(const string &newType) {
   if (newType == this->type) {

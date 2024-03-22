@@ -21,16 +21,6 @@ private:
 
   void toHex();
 
-  inline int toInt() {
-    int result = 0;
-    if (type == "0d") {
-      result = std::stoi(value);
-    } else if (type == "0b") {
-    } else if (type == "0x") {
-    }
-    return result;
-  };
-
 public:
   // Constructors
   BaseNumber(); // Default constructor if needed
@@ -45,17 +35,18 @@ public:
     return type + value;
   } // Combines type and value for display
   int getValue() const {
-    return std::stoi(value);
+    return stoi(value);
   } // Converts value to integer (if possible)
   string getType() const { return type; } // Returns the type of the number
   void setValue(const string &newValue) {
     value = newValue;
   } // Sets a new value
 
-  // Overloading + operator
+  // These are operator overloads, this makes it possible to do something like
+  // BaseNumber1 + BaseNumber2. Thses are used in the arith function in main.
   inline BaseNumber operator+(const BaseNumber &other) const {
-    int resultValue = std::stoi(this->value) + std::stoi(other.value);
-    BaseNumber num(std::to_string(resultValue), "0d");
+    int resultValue = stoi(this->value) + stoi(other.value);
+    BaseNumber num(to_string(resultValue), "0d");
     if (num.type != type) {
       num.convertTo(type);
     }
@@ -63,8 +54,8 @@ public:
   }
 
   inline BaseNumber operator-(const BaseNumber &other) const {
-    int resultValue = std::stoi(this->value) - std::stoi(other.value);
-    BaseNumber num(std::to_string(resultValue), "0d");
+    int resultValue = stoi(this->value) - stoi(other.value);
+    BaseNumber num(to_string(resultValue), "0d");
 
     if (num.type != type) {
       num.convertTo(type);

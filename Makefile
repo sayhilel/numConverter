@@ -1,3 +1,4 @@
+#this Makefile follows a template that was given to me in 310, most Makefiles for projects will follow a similar format.
 OBJS = BaseNumber.o
 TEST = tester
 EXE = calculator 
