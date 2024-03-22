@@ -53,21 +53,21 @@ public:
   } // Sets a new value
 
   // Overloading + operator
-  inline BaseNumber *operator+(const BaseNumber &other) const {
+  inline BaseNumber operator+(const BaseNumber &other) const {
     int resultValue = std::stoi(this->value) + std::stoi(other.value);
-    BaseNumber *num = new BaseNumber(std::to_string(resultValue), "0d");
-    if (num->type != type) {
-      num->convertTo(type);
+    BaseNumber num(std::to_string(resultValue), "0d");
+    if (num.type != type) {
+      num.convertTo(type);
     }
     return num;
   }
 
-  inline BaseNumber *operator-(const BaseNumber &other) const {
+  inline BaseNumber operator-(const BaseNumber &other) const {
     int resultValue = std::stoi(this->value) - std::stoi(other.value);
-    BaseNumber *num = new BaseNumber(std::to_string(resultValue), "0d");
+    BaseNumber num(std::to_string(resultValue), "0d");
 
-    if (num->type != type) {
-      num->convertTo(type);
+    if (num.type != type) {
+      num.convertTo(type);
     }
     return num;
   }

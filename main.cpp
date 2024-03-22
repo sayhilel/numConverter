@@ -55,7 +55,7 @@ BaseNumber arithFunct(BaseNumber *num1) {
   string typeTo = num1->getType();
   cout << "Enter a number: " << endl;
   BaseNumber *num2 = getInput();
-  BaseNumber *result = new BaseNumber("0", "0d");
+  BaseNumber result("0", "0d");
   // BaseCalc temp(num1, num2);
 
   if (num1->getType() != "0d") {
@@ -86,15 +86,17 @@ BaseNumber arithFunct(BaseNumber *num1) {
     }
   }
 
-  if (result->getValue() < 0 || result->getValue() > 268435455) {
+  if (result.getValue() < 0 || result.getValue() > 268435455) {
     throw std::overflow_error("Overflow, number can't be displayed");
   }
 
-  if (result->getType() != typeTo) {
-    result->convertTo(typeTo);
+  if (result.getType() != typeTo) {
+    result.convertTo(typeTo);
   }
-  cout << result->getNum() << endl;
-  return *result;
+
+  cout << result.getNum() << endl;
+  delete num2;
+  return result;
 }
 
 int getMenuChoice() {
