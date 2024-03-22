@@ -153,7 +153,7 @@ int main(int argc, char **argv)
     else if (mode == "0")
     {
         cout << "Automatic mode selected. Type \"Help\" to see usage instructions." << endl;
-
+        iprintMenu();
         string command, subCommand;
         size_t position;
         while (true)
