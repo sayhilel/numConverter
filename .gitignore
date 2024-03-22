@@ -1,0 +1,8 @@
+# Ignore all executable files
+*.exe
+*.out
+# Add any other executable file extensions you need to ignore
+
+# Ignore all object files
+*.o
+
