@@ -1,4 +1,3 @@
-#pragma once
 #include <iostream>
 #include <map>
 #include <string>
@@ -23,7 +22,8 @@ inline std::string toLower(const std::string &str) {
   return result;
 }
 
-inline bool nextCommand(std::string &command, std::string &subCommand) {
+inline bool nextCommand(std::string &command, std::string &subCommand,
+                        size_t *position) {
 
   std::cin >> command;
 
@@ -118,3 +118,6 @@ inline std::map<char, string> hexToBin = {
     {'4', "0100"}, {'5', "0101"}, {'6', "0110"}, {'7', "0111"},
     {'8', "1000"}, {'9', "1001"}, {'A', "1010"}, {'B', "1011"},
     {'C', "1100"}, {'D', "1101"}, {'E', "1110"}, {'F', "1111"}};
+
+inline std::map<std::string, std::string> prefixMap = {
+    {"hex", "0x"}, {"bin", "0b"}, {"dec", "0d"}};

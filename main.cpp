@@ -1,9 +1,9 @@
 #include "BaseNumber.h"
-#include "util.hpp"
 #include <fstream>
 #include <iostream>
 #include <ostream>
 #include <vector>
+
 using namespace std;
 
 BaseNumber *getInput() {
@@ -120,7 +120,7 @@ void initializeArray(vector<BaseNumber> &numArray, string ifile) {
 
 void convertArray(vector<BaseNumber> &numArray, string type) {
   for (size_t i = 0; i < numArray.size(); i++) {
-    numArray[i].convertTo(type);
+    numArray[i].convertTo(prefixMap[type]);
     cout << "Converted: " << numArray[i].getNum() << endl;
   }
 }
@@ -140,6 +140,7 @@ void saveArray(vector<BaseNumber> &numArray, string ofile) {
 double totalArray(vector<BaseNumber> &numArray) {
   double total = 0;
   for (size_t i = 0; i < numArray.size(); i++) {
+    numArray[i].convertTo("0d");
     total += numArray[i].getValue();
   }
   return total;
@@ -179,9 +180,10 @@ int main(int argc, char **argv) {
          << endl;
     iprintMenu();
     string command, subCommand;
+    size_t position;
     vector<BaseNumber> numArray;
     while (true) {
-      if (!nextCommand(command, subCommand)) {
+      if (!nextCommand(command, subCommand, &position)) {
         cerr << "ERROR: Invalid input" << endl;
         cerr << "Enter \"HELP\" to print out valid commands" << endl;
 
