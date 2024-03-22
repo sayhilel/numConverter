@@ -48,6 +48,7 @@ void arithFunct(BaseNumber *num1) {
     }
 
     cout << temp.getResult() << endl;
+
 }
 
 int getMenuChoice() {
