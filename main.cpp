@@ -2,10 +2,20 @@
 #include <fstream>
 #include <iostream>
 #include <ostream>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
 using namespace std;
+
+// returns true if there's overflow, false if there's not
+bool oFChkr(int test) {
+  if (test < 0 || test > 268435455) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 BaseNumber *getInput() {
   string inVal;
@@ -22,7 +32,19 @@ BaseNumber *getInput() {
       string type = inVal.substr(0, 2);
       string value = inVal.substr(2);
 
-      return new BaseNumber(value, type);
+      BaseNumber *newNum = new BaseNumber(value, type);
+      if (type != "0d") {
+        newNum->convertTo("0d");
+      }
+      if (!oFChkr(newNum->getValue())) {
+        if (newNum->getType() != type) {
+
+          newNum->convertTo(type);
+        }
+        return newNum;
+      }
+
+      delete newNum;
     } else {
       cout << "Invalid input. Try again." << endl;
     }
@@ -36,8 +58,13 @@ BaseNumber arithFunct(BaseNumber *num1) {
   BaseNumber *result = new BaseNumber("0", "0d");
   // BaseCalc temp(num1, num2);
 
-  num1->convertTo("0d");
-  num2->convertTo("0d");
+  if (num1->getType() != "0d") {
+    num1->convertTo("0d");
+  }
+
+  if (num2->getType() != "0d") {
+    num2->convertTo("0d");
+  }
 
   int select;
   cout << "Choose a function to perform:" << endl;
@@ -53,12 +80,19 @@ BaseNumber arithFunct(BaseNumber *num1) {
     } else if (select == 1) {
       result = *num1 - *num2;
       break;
+
     } else {
       cout << "Incorrect input, try again" << endl;
     }
   }
 
-  result->convertTo(typeTo);
+  if (result->getValue() < 0 || result->getValue() > 268435455) {
+    throw std::overflow_error("Overflow, number can't be displayed");
+  }
+
+  if (result->getType() != typeTo) {
+    result->convertTo(typeTo);
+  }
   cout << result->getNum() << endl;
   return *result;
 }
@@ -94,7 +128,11 @@ void handleMenuChoice(int choice, BaseNumber *currentNum) {
     break;
   case 4:
     cout << "Performing arithmetic operations..." << endl;
-    *currentNum = arithFunct(currentNum);
+    try {
+      *currentNum = arithFunct(currentNum);
+    } catch (const std::exception &e) {
+      std::cerr << e.what() << endl;
+    }
     break;
   default:
     cout << "Invalid choice." << endl;
@@ -160,7 +198,8 @@ string totalArray(vector<BaseNumber> &numArray) {
     numArray[i].convertTo(currentType);
   }
 
-  BaseNumber totalNum = BaseNumber(to_string(total), initalType);
+  BaseNumber totalNum = BaseNumber(to_string(total), "0d");
+  totalNum.convertTo(initalType);
   return totalNum.getNum();
 }
 
