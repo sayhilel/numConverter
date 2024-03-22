@@ -1,4 +1,4 @@
-OBJS = BaseNumber.o baseCalc.o
+OBJS = BaseNumber.o
 TEST = tester
 EXE = calculator 
 CC = g++

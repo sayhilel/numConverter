@@ -1,4 +1,3 @@
-#include "baseCalc.h"
 #include "BaseNumber.h"
 #include <iostream>
 #include <ostream>
