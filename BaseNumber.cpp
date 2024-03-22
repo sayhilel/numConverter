@@ -97,13 +97,13 @@ void BaseNumber::toHex() {
         {
             if (pair.second == temp)
             {
-                value += pair.first;
+                hexResult += pair.first;
             }
         }
     }
 
     // Update the number's type and value to the converted result
-    type = "0x"; // set type to binary
+    type = "0x"; // set type to hex
     value = hexResult;
 }
 
